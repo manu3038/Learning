@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.Comparator;
 
 public class largButMinFreq {
 
@@ -21,7 +22,7 @@ public class largButMinFreq {
 		for (int i = 0; i < sequenceLength; i++) {
 			arr[i] = (sc.nextInt());
 		}
-		System.out.println(LargButMinFreq(arr,sequenceLength));
+		System.out.println("Answer = "+LargButMinFreq(arr,sequenceLength));
 	}
 	// Function to find largest number with minimum frequency
     public static Integer LargButMinFreq(int[] arr, int n)
@@ -44,9 +45,11 @@ public class largButMinFreq {
         } else {
         	List<Integer> tempList = new ArrayList<Integer>();
             tempList.addAll(temp.keySet());
-            Collections.sort(tempList);
-        	tempList.stream().filter(e->(temp.get(e) == minValue));
-        	return tempList.get(0);
+			Integer ans = tempList.stream()
+					.sorted(Comparator.reverseOrder())
+					.filter(e->(temp.get(e) == minValue))
+					.findFirst().get();
+        	return ans;
         }
     }
 
